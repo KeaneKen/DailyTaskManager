@@ -17,12 +17,15 @@ public class DailyTaskManagerArray {
 
         //while true so the program loops when an activity is completed
         do {
+            clearScreen();
             System.out.println("What do you want to do\n1. View List\n2. Modify a task\n3. Mark a task as completed\n4. Undo a completed task\n5. Display complete/uncompleted task\n6. Display stack\n7. Exit");
             userChoice = scanner.nextInt();
+            scanner.nextLine();
             switch (userChoice) {
 
                 // for displaying
                 case 1:
+                clearScreen();
                     System.out.println("Your Tasks:");
                     for (int i = 0; i < activities.length; i++) {
                         String status = completedStatus[i] ? " (DONE)" : ""; // Check if completed
@@ -32,6 +35,7 @@ public class DailyTaskManagerArray {
 
                 //for modifying/updating tasks
                 case 2:
+                clearScreen();
                 System.out.println("Your Tasks:");
                 for (int i = 0; i < activities.length; i++) {
                     String status = completedStatus[i] ? " (DONE)" : ""; // Check if completed
@@ -57,14 +61,10 @@ public class DailyTaskManagerArray {
                     } else {
                         System.out.println("Invalid task number.");
                     }
-                // System.out.println("Insert the task");
-                // scanner.nextLine();
-                // String userMod = scanner.nextLine();
-                // activities[userIndex] = userMod;
-                // break;
 
                 //to mark a task as done
                 case 3:
+                clearScreen();
                 System.out.println("Your Tasks:");
                 for (int i = 0; i < activities.length; i++) {
                     String status = completedStatus[i] ? " (DONE)" : ""; // Check if completed
@@ -89,6 +89,7 @@ public class DailyTaskManagerArray {
 
 
                 case 4:
+                clearScreen();
                 if (!completedStack.isEmpty()) {
                     String undoneTask = completedStack.pop(); // Remove from stack
                     for (int i = 0; i < activities.length; i++) {
@@ -108,7 +109,7 @@ public class DailyTaskManagerArray {
                 //these two are counters for complete and uncompleted task
                 int completeCount = 0;
                 int uncompleteCount = 0;
-
+                clearScreen();
                 System.out.println("Your Tasks:");
                 for (int i = 0; i < activities.length; i++) {
                     String status = completedStatus[i] ? " (DONE)" : ""; // Check if completed
@@ -125,6 +126,7 @@ public class DailyTaskManagerArray {
             break;
 
                 case 6:
+                clearScreen();
                 System.out.println("Completed Tasks");
 
                 if (completedStack.isEmpty()){
@@ -140,6 +142,7 @@ public class DailyTaskManagerArray {
 
             //This case is for exiting the code
                 case 7:
+                clearScreen();
                 System.out.println("Are you sure? (1,2)\n1.No\n2.Yes");
                 int exitChoice = scanner.nextInt();
                 if (exitChoice == 1) {
@@ -157,4 +160,11 @@ public class DailyTaskManagerArray {
 } while (run == true);
 scanner.close();
     }
+
+// Function for clearing the screen
+private static void clearScreen() {
+    System.out.print("\033[H\033[2J");
+    System.out.flush();
+    }
 }
+

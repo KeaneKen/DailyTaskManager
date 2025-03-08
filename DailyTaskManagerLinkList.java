@@ -47,10 +47,12 @@ public class DailyTaskManagerLinkList {
     break;
             //Modify a task    
             case 2:
-            displayTasks(tasks);
+            clearScreen();
 
+            while (true) {
+            displayTasks(tasks);
             System.out.println("Enter which task to modify (1,2,3)");
-            int taskIndex = scanner.nextInt() - 1;
+            int taskIndex = scanner.nextInt() - 1; //- 1 is because the index starts with 0
             scanner.nextLine();
 
             //made a loop for troubleproofing
@@ -58,12 +60,20 @@ public class DailyTaskManagerLinkList {
                 System.out.println("Enter the modified task");
                 String newTask = scanner.nextLine();
                 tasks.set(taskIndex, newTask);
+                clearScreen();
+                break;
             } else {
-                System.out.println("invalid task");
+                System.out.println("invalid task, press Enter to continue");
+                scanner.nextLine();
+                clearScreen();
             }
-            break;
+        
+            }  break;
 
+            //Marking a task as done
             case 3:
+            while (true) {
+            clearScreen();
             displayTasks(tasks);
             System.out.println("Select which task to mark as done (1,2,3)");
             int taskDone = scanner.nextInt() - 1;
@@ -71,21 +81,40 @@ public class DailyTaskManagerLinkList {
             
             //troubleproofing loop blah blah blah
             if (taskDone >= 0 && taskDone < tasks.size()) {
-                done.set(taskDone, true);
-                String completedTask = tasks.remove(taskDone);
-                taskStack.push(completedTask);
+                if (!done.get(taskDone)) {
+                    done.set(taskDone, true);
+                    taskStack.push(tasks.get(taskDone));
+                    tasks.remove(taskDone);
+                    System.out.println("Task '" + tasks.get(taskDone) + "' marked as done!");
 
+                    //for pressing enter to continue, i do this so it will pause and you will be able to read the displayed text before cls
+                    System.out.println("\nPress Enter to continue");
+                    scanner.nextLine();
+                    clearScreen();
+                    break;
+                    
+                } else {
+                    System.out.println("The task is already marked as completed");
+                }
             } else {
                 System.out.println("invalid task");
             }
-            break;
+        }break;
 
+            //undoing a complete task
             case 4:
+            clearScreen();
             if (!taskStack.isEmpty()) {
                 String undoneTask = taskStack.pop();
                 tasks.add(undoneTask);
                 done.add(false);
                 System.out.println("Task '" + undoneTask + "' Has been added back to the list!\n");
+
+                //for pressing enter to continue, i do this so it will pause and you will be able to read the displayed text before cls
+                System.out.println("\nPress Enter to continue");
+                scanner.nextLine();
+                clearScreen();                
+                
                     } else {
                         System.out.println("There are no completed task yet!\n");
                     }
@@ -131,6 +160,8 @@ public class DailyTaskManagerLinkList {
             //troubleproofing for if the input is empty
             if (!newTask.isEmpty()) {
                 tasks.add(newTask);
+                done.add(false);
+
                 System.out.println("The new task has been added");
 
             //updated task list

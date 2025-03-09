@@ -18,7 +18,7 @@ public class DailyTaskManagerArray {
         //while true so the program loops when an activity is completed
         do {
             clearScreen();
-            System.out.println("What do you want to do\n1. View List\n2. Modify a task\n3. Mark a task as completed\n4. Undo a completed task\n5. Display complete/uncompleted task\n6. Display stack\n7. Exit");
+            System.out.println("What do you want to do\n1. View List\n2. Modify a task\n3. Mark a task as completed\n4. Undo a completed task\n5. Display complete/uncompleted task\n6. Peek Operation\n7. Exit");
             userChoice = scanner.nextInt();
             scanner.nextLine();
             switch (userChoice) {
@@ -127,16 +127,16 @@ public class DailyTaskManagerArray {
 
                 case 6:
                 clearScreen();
-                System.out.println("Completed Tasks");
-
-                if (completedStack.isEmpty()){
-                    System.out.println("No completed task yet");
-                }else {
-                int count = 1;
-                for (String task : completedStack) {
-                System.out.println(count + ". " + task );
-                count++; }
+                if (!completedStack.isEmpty()) {
+                    System.out.println("The last completed task is: " + completedStack.peek());
+                } else {
+                    System.out.println("There are no completed task yet!");
                 }
+    
+                //a pause so the user can read the texts
+                System.out.println("press Enter to continue");
+                scanner.nextLine();
+                clearScreen();
                 break;
                 //System.out.println(completedStack);
 

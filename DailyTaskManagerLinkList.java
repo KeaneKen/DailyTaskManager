@@ -24,7 +24,7 @@ public class DailyTaskManagerLinkList {
 
     //the main app
     do{
-        System.out.println("What do you want to do\n1. View List\n2. Modify a task\n3. Mark a task as completed\n4. Undo a completed task\n5. Display complete/uncompleted task\n6. Display the last completed task\n7. Insert a new task\n8. Delete a task\n9. Exit\n");
+        System.out.println("What do you want to do\n1. View List\n2. Modify a task\n3. Mark a task as completed\n4. Undo a completed task\n5. Display complete/uncompleted task\n6. Peek operation\n7. Insert a new task\n8. Delete a task\n9. Exit\n");
         int userChoice = scanner.nextInt();
         scanner.nextLine();
         switch (userChoice) {
@@ -139,18 +139,18 @@ public class DailyTaskManagerLinkList {
             } break;
 
             case 6:
-            while (true) {
             clearScreen();
-            System.out.println(taskStack.get(0));
-            System.out.println("\nType 'back' to go back");
-            String goBack = scanner.nextLine();
-            if (goBack.equals("back")) {
-                clearScreen();
-                break;
+            if (!taskStack.isEmpty()) {
+                System.out.println("The last completed task is: " + taskStack.peek());
             } else {
-                clearScreen();
+                System.out.println("There are no completed task yet!");
             }
-            } break;
+
+            //a pause so the user can read the texts
+            System.out.println("press Enter to continue");
+            scanner.nextLine();
+            clearScreen();
+            break;
 
             case 7:
             while (true){
